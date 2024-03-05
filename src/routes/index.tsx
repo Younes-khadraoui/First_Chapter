@@ -5,23 +5,21 @@ import {
   useResource$,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { getBooks } from "~/features/api/fetchBooks";
-import { categoryContext } from "~/features/context/sidebarContext";
-import { type Book } from "~/features/api/fetchBooks";
+import { getBooks, type Book } from "~/features/api/fetchBooks";
+import { categoryContext } from "~/routes/layout";
 
 export default component$(() => {
   const userData = useContext(categoryContext);
-  console.log(userData.category);
+  console.log(userData.value);
   const categoriesResource = useResource$<Book[]>(
     async ({ track, cleanup }) => {
-      console.log(userData.category);
-      track(() => userData);
-      console.log(userData.category);
+      track(() => userData.value);
+      console.log(userData.value);
 
       const controller = new AbortController();
       cleanup(() => controller.abort());
 
-      return await getBooks(userData.category, "search+subject", controller);
+      return await getBooks(userData.value, "search+subject", controller);
     }
   );
   return (
