@@ -1,47 +1,63 @@
 import {
   Resource,
   component$,
-  useContext,
+  // useContext,
   useResource$,
+  useSignal,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { getBooks, type Book } from "~/features/api/fetchBooks";
-import { categoryContext } from "~/routes/layout";
+import {
+  API_KEY,
+  BASE_URL,
+  //  getBooks
+} from "~/features/api/fetchBooks";
+// import { categoryContext } from "~/routes/layout";
+import { type Book } from "~/features/api/fetchBooks";
 
 export default component$(() => {
-  const userData = useContext(categoryContext);
-  console.log(userData.value);
-  const categoriesResource = useResource$<Book[]>(
-    async ({ track, cleanup }) => {
-      track(() => userData.value);
-      console.log(userData.value);
+  // const userData = useContext(categoryContext);
+  // console.log(userData.value);
+  const tracked = useSignal<string>("");
+  const categoriesResource = useResource$(async ({ track, cleanup }) => {
+    track(() => tracked.value);
+    console.log(tracked.value);
 
-      const controller = new AbortController();
-      cleanup(() => controller.abort());
+    const controller = new AbortController();
+    cleanup(() => controller.abort("cleanup"));
 
-      return await getBooks(userData.value, "search+subject", controller);
-    }
-  );
+    const res = await fetch(
+      `${BASE_URL}?q="search+subject":${tracked.value}&key=${API_KEY}&maxResults=40`,
+      { signal: controller.signal }
+    );
+    const data = await res.json();
+    const books: Book[] = data.items;
+
+    return books;
+  });
+
   return (
-    <Resource
-      value={categoriesResource}
-      onPending={() => <div class="bg-red-500">Loading...</div>}
-      onRejected={(reason) => <div>Error: {reason.message}</div>}
-      onResolved={(Books) => (
-        <div class="flex flex-wrap gap-4 p-4 justify-center">
-          {Books.map((book) => (
-            <div key={book.id}>
-              <img
-                class="h-full"
-                src={book.volumeInfo.imageLinks?.thumbnail}
-                width={200}
-                height={80}
-              />
-            </div>
-          ))}
-        </div>
-      )}
-    />
+    <div>
+      <input class="text-black" bind:value={tracked} />
+      <Resource
+        value={categoriesResource}
+        onPending={() => <div class="bg-red-500">Loading...</div>}
+        onRejected={(reason) => <div>Error: {reason.message}</div>}
+        onResolved={(Books) => (
+          <div class="flex flex-wrap gap-4 p-4 justify-center">
+            {Books.map((book) => (
+              <div key={book.id}>
+                <img
+                  class="h-full"
+                  src={book.volumeInfo.imageLinks.thumbnail}
+                  width={200}
+                  height={80}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      />
+    </div>
   );
 });
 

@@ -6,7 +6,6 @@ import {
   useContextProvider,
   useSignal,
 } from "@builder.io/qwik";
-
 import { routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { Footer } from "~/components/footer/footer";

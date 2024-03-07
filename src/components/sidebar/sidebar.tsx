@@ -22,8 +22,7 @@ const bookCategories = [
 ];
 
 export const Sidebar = component$(() => {
-  const userData = useContext(categoryContext);
-  console.log(userData.value);
+  const categoryData = useContext(categoryContext);
   return (
     <div class="border-4 border-[#292828] rounded-lg p-4 max-h-fit mt-3 ml-2 inline-block">
       <p class="underline underline-offset-2 text-xl pb-4">Categories</p>
@@ -37,7 +36,7 @@ export const Sidebar = component$(() => {
               name={"category"}
               value={category}
               onChange$={() => {
-                userData.value = category;
+                categoryData.value = category;
               }}
             />
             <label class="px-2 text-sm">{category}</label>
