@@ -15,11 +15,17 @@ export interface Book {
   };
 }
 
-// export async function getBooks(
-//   category: string = "",
-//   searchTerm: string = "",
-//   controller?: AbortController
-// ): Promise<Book[]> {
+export async function getBooks(
+  category: string = "",
+  searchTerm: string = "",
+  controller: AbortController
+): Promise<Book[]> {
+  const res = await fetch(
+    `${BASE_URL}?q=${searchTerm}:${category}&key=${API_KEY}&maxResults=40`,
+    { signal: controller.signal }
+  );
+  const data = await res.json();
+  const books: Book[] = data.items;
 
-//   return books;
-// }
+  return books;
+}

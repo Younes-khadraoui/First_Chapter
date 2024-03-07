@@ -28,12 +28,18 @@ export const useServerTimeLoader = routeLoader$(() => {
     date: new Date().toISOString(),
   };
 });
+
 export const categoryContext =
   createContextId<Signal<string>>("Category_Context");
+
+export const searchContext = createContextId<Signal<string>>("Search_Context");
+
 export default component$(() => {
   const selectedCategory = useSignal("");
+  const searchedValue = useSignal("");
 
   useContextProvider(categoryContext, selectedCategory);
+  useContextProvider(searchContext, searchedValue);
   return (
     <>
       <Navbar />

@@ -1,43 +1,29 @@
 import {
   Resource,
   component$,
-  // useContext,
+  useContext,
   useResource$,
-  useSignal,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import {
-  API_KEY,
-  BASE_URL,
-  //  getBooks
-} from "~/features/api/fetchBooks";
-// import { categoryContext } from "~/routes/layout";
-import { type Book } from "~/features/api/fetchBooks";
+import { searchContext, categoryContext } from "./layout";
+import { getBooks } from "~/features/api/fetchBooks";
 
 export default component$(() => {
-  // const userData = useContext(categoryContext);
-  // console.log(userData.value);
-  const tracked = useSignal<string>("");
+  const userData = useContext(categoryContext);
+  const searchData = useContext(searchContext);
   const categoriesResource = useResource$(async ({ track, cleanup }) => {
-    track(() => tracked.value);
-    console.log(tracked.value);
+    track(() => userData.value || searchData.value);
 
     const controller = new AbortController();
     cleanup(() => controller.abort("cleanup"));
 
-    const res = await fetch(
-      `${BASE_URL}?q="search+subject":${tracked.value}&key=${API_KEY}&maxResults=40`,
-      { signal: controller.signal }
-    );
-    const data = await res.json();
-    const books: Book[] = data.items;
-
-    return books;
+    if (searchData.value)
+      return getBooks(searchData.value, userData.value, controller);
+    else return getBooks("Search", userData.value, controller);
   });
 
   return (
     <div>
-      <input class="text-black" bind:value={tracked} />
       <Resource
         value={categoriesResource}
         onPending={() => <div class="bg-red-500">Loading...</div>}
