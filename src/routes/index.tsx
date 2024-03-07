@@ -4,7 +4,7 @@ import {
   useContext,
   useResource$,
 } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { type DocumentHead } from "@builder.io/qwik-city";
 import { searchContext, categoryContext } from "./layout";
 import { getBooks } from "~/features/api/fetchBooks";
 
@@ -12,7 +12,7 @@ export default component$(() => {
   const userData = useContext(categoryContext);
   const searchData = useContext(searchContext);
   const categoriesResource = useResource$(async ({ track, cleanup }) => {
-    track(() => userData.value || searchData.value);
+    track(() => userData.value && searchData.value);
 
     const controller = new AbortController();
     cleanup(() => controller.abort("cleanup"));
@@ -23,7 +23,7 @@ export default component$(() => {
   });
 
   return (
-    <div>
+    <div class="min-h-screen">
       <Resource
         value={categoriesResource}
         onPending={() => <div class="bg-red-500">Loading...</div>}

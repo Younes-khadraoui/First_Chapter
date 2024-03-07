@@ -1,33 +1,26 @@
 import { component$, useContext } from "@builder.io/qwik";
 import { categoryContext } from "~/routes/layout";
 
-const bookCategories = [
+export const categories = [
   "Fiction",
-  "Non-fiction",
-  "Mystery",
-  "Romance",
-  "Fantasy",
-  "Historical Fiction",
-  "Thriller",
-  "Biography",
-  "History",
-  "Self-help",
-  "Psychology",
-  "Philosophy",
-  "Religion",
-  "Travel",
-  "Cookbooks",
-  "Art & Photography",
-  "Science",
+  "Music",
+  "Clergy",
+  "Europe",
+  "Horses",
+  "Asia",
+  "Celibacy",
+  "Fiction",
+  "English language",
+  "Bookkeeping",
 ];
 
 export const Sidebar = component$(() => {
   const categoryData = useContext(categoryContext);
   return (
-    <div class="border-4 border-[#292828] rounded-lg p-4 max-h-fit mt-3 ml-2 inline-block">
+    <div class="border-4 border-[#292828] rounded-lg p-4 max-w-fit mt-3 ml-2 inline-block">
       <p class="underline underline-offset-2 text-xl pb-4">Categories</p>
       <ul>
-        {bookCategories.map((category, index) => (
+        {categories.map((category, index) => (
           <li key={index}>
             <input
               class="accent-[#292828] outline-none  cursor-pointer"
