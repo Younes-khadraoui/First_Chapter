@@ -13,9 +13,9 @@ export interface Book {
     authors: string[];
     imageLinks: {
       smallThumbnail: string;
-      thumbnail: string;
+      thumbnail?: string;
     };
-    categories: string[];
+    categories?: string[];
   };
 }
 
