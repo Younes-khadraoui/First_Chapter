@@ -4,28 +4,10 @@ import {
   useContext,
   useResource$,
 } from "@builder.io/qwik";
-import {
-  routeLoader$,
-  type DocumentHead,
-  useNavigate,
-} from "@builder.io/qwik-city";
+import { type DocumentHead, useNavigate } from "@builder.io/qwik-city";
 import { searchContext, categoryContext } from "./layout";
 import { type Book, getBooks } from "~/features/api/fetchBooks";
 import placeholder from "~/assets/placeholder.jpg";
-import { categories } from "~/components/sidebar/sidebar";
-
-export const useCategory = routeLoader$(async () => {
-  const books = await getBooks();
-  books.map((book) => {
-    if (book.volumeInfo?.categories) {
-      book.volumeInfo.categories.map((category) => {
-        if (!categories.includes(category)) {
-          categories.push(category);
-        }
-      });
-    }
-  });
-});
 
 export default component$(() => {
   const nav = useNavigate();
@@ -40,9 +22,17 @@ export default component$(() => {
     const controller = new AbortController();
     cleanup(() => controller.abort("cleanup"));
 
-    if (searchData.value)
-      return getBooks(searchData.value, categorieData.value, controller);
-    else return getBooks("Search", categorieData.value, controller);
+    if (searchData.value) {
+      const books = await getBooks(
+        searchData.value,
+        categorieData.value,
+        controller
+      );
+      return books;
+    } else {
+      const books = await getBooks("search", categorieData.value, controller);
+      return books;
+    }
   });
 
   return (
@@ -54,7 +44,9 @@ export default component$(() => {
             Loading...
           </div>
         )}
-        onRejected={(reason) => <div>Error: {reason.message}</div>}
+        onRejected={(reason) => (
+          <div class="p-4 text-red-500">Error: {reason.message}</div>
+        )}
         onResolved={(Books) => (
           <div class="flex flex-wrap gap-4 p-4 justify-center ">
             {Books.map((book) => (

@@ -1,7 +1,28 @@
 import { component$, useContext } from "@builder.io/qwik";
 import { categoryContext } from "~/routes/layout";
 
-export const categories: string[] = [];
+export const categories = [
+  "Fiction",
+  "Non-fiction",
+  "Mystery",
+  "Romance",
+  "Fantasy",
+  "Biography",
+  "History",
+  "Development",
+  "Business",
+  "Young Adult",
+  "Children",
+  "Crime",
+  "Horror",
+  "Poetry",
+  "Travel",
+  "Cooking",
+  "Art",
+  "Religion",
+  "Philosophy",
+  "Psychology",
+];
 
 export const Sidebar = component$(() => {
   const categoryData = useContext(categoryContext);
