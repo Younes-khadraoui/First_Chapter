@@ -1,13 +1,16 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import { type Book, getBook } from "~/features/api/fetchBooks";
 import placeholder from "~/assets/placeholder.jpg";
+import { FaHeartRegular } from "@qwikest/icons/font-awesome";
 
 export const useBook = routeLoader$(async (requestEvent) => {
   return (await getBook(requestEvent.params.id)) as Book;
 });
 
 export default component$(() => {
+  const favourite = useSignal(false);
+
   const res = useBook();
   const book = res.value;
 
@@ -26,12 +29,24 @@ export default component$(() => {
           <p class="opacity-70 mb-4">
             {book.volumeInfo.categories?.join(", ")}
           </p>
-          <Link
-            class="bg-white rounded-lg text-black p-2 hover:bg-[#242121] hover:border hover:border-white hover:text-white transition-all duration-300 ease-in-out"
-            href={book.volumeInfo.previewLink}
-          >
-            Preview
-          </Link>
+          <div class="flex items-center">
+            <Link
+              class="bg-white rounded-lg text-[#242121] p-2 hover:bg-[#242121] hover:border hover:border-white hover:text-white transition-all duration-300 ease-in-out"
+              href={book.volumeInfo.previewLink}
+              target="_blank"
+            >
+              Preview
+            </Link>
+            <div
+              onClick$={() => {
+                favourite.value = !favourite.value;
+              }}
+            >
+              <FaHeartRegular
+                class={`text-2xl ml-4 ${favourite.value ? "text-red-500" : ""} cursor-pointer`}
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div class="p-4 flex-grow">

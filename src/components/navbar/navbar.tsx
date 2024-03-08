@@ -5,12 +5,13 @@ import {
   $,
   type QRL,
 } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
+import { Form, Link } from "@builder.io/qwik-city";
 import { FaHeartRegular } from "@qwikest/icons/font-awesome";
 import { FaBellRegular } from "@qwikest/icons/font-awesome";
 import { FaGemRegular } from "@qwikest/icons/font-awesome";
 import BooksIcon from "~/assets/Books.svg?jsx";
 import { searchContext } from "~/routes/layout";
+import { useAuthSession, useAuthSignin } from "~/routes/plugin@auth";
 
 export const useDebouncer = (fn: QRL<(args: any) => void>, delay: number) => {
   const timeoutId = useSignal<number>();
@@ -22,6 +23,9 @@ export const useDebouncer = (fn: QRL<(args: any) => void>, delay: number) => {
 };
 
 export const Navbar = component$(() => {
+  const session = useAuthSession();
+  const signIn = useAuthSignin();
+
   const searchData = useContext(searchContext);
   const debounce = useDebouncer(
     $((value: string) => {
@@ -59,9 +63,29 @@ export const Navbar = component$(() => {
         <Link href="/" class="text-2xl">
           <FaGemRegular />
         </Link>
-        <Link href="/">
-          <img class="rounded-full bg-white" width={30} height={30} />
-        </Link>
+        {session.value?.user === undefined && (
+          <Form action={signIn}>
+            <input type="hidden" name="providerId" value="github" />
+            <input
+              type="hidden"
+              name="options.callbackUrl"
+              value="http://localhost:5173/"
+            />
+            <button>
+              <img class="rounded-full bg-white" width={30} height={30} />
+            </button>
+          </Form>
+        )}
+        {session.value?.user !== undefined && (
+          <Link href="/account">
+            <img
+              src={session.value.user.image || ""}
+              class="rounded-full bg-white"
+              width={30}
+              height={30}
+            />
+          </Link>
+        )}
       </dvi>
     </div>
   );
