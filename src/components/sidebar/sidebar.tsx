@@ -29,7 +29,7 @@ export const Sidebar = component$(() => {
   return (
     <div class="border-4 border-[#292828] rounded-lg p-4 min-w-fit mt-3 ml-2 inline-block">
       <p class="underline underline-offset-2 text-xl pb-4">Categories</p>
-      <ul>
+      <ul class="mb-4">
         {categories.map((category, index) => (
           <li key={index}>
             <input
@@ -38,6 +38,7 @@ export const Sidebar = component$(() => {
               id={category}
               name={"category"}
               value={category}
+              checked={category === categoryData.value}
               onChange$={() => {
                 categoryData.value = category;
               }}
@@ -46,6 +47,19 @@ export const Sidebar = component$(() => {
           </li>
         ))}
       </ul>
+      <button
+        class="bg-white text-sm rounded-sm text-black p-1 hover:bg-[#242121] hover:border hover:border-white hover:text-white transition-all duration-300 ease-in-out"
+        onClick$={() => {
+          categoryData.value = "";
+          document
+            .querySelectorAll('input[type="radio"][name="category"]')
+            .forEach((input) => {
+              (input as HTMLInputElement).checked = false;
+            });
+        }}
+      >
+        Clear Selection
+      </button>
     </div>
   );
 });
