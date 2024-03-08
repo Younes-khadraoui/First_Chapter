@@ -15,7 +15,10 @@ export interface Book {
       smallThumbnail: string;
       thumbnail?: string;
     };
+    description: string;
     categories?: string[];
+    pageCount: number;
+    previewLink: string;
   };
 }
 
@@ -40,4 +43,11 @@ export async function getBooks(
   const books: Book[] = data.items;
 
   return books;
+}
+
+export async function getBook(id: string): Promise<Book> {
+  const res = await fetch(`${BASE_URL}/${id}`);
+  const book: Book = await res.json();
+
+  return book;
 }

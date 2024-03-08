@@ -11,8 +11,12 @@ export const Navbar = component$(() => {
   return (
     <div class="bg-[#292828] flex justify-between p-2 items-center">
       <div class="flex flex-grow text-start items-center ">
-        <BooksIcon width={80} />
-        <p class="text-2xl flex-grow">First Chapter</p>
+        <Link href="/">
+          <BooksIcon width={80} />
+        </Link>
+        <Link href="/">
+          <p class="text-2xl flex-grow hover:opacity-80 ">First Chapter</p>
+        </Link>
       </div>
       <dvi class="flex-grow flex pr-10 ">
         <input

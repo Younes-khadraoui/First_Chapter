@@ -4,7 +4,11 @@ import {
   useContext,
   useResource$,
 } from "@builder.io/qwik";
-import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
+import {
+  routeLoader$,
+  type DocumentHead,
+  useNavigate,
+} from "@builder.io/qwik-city";
 import { searchContext, categoryContext } from "./layout";
 import { type Book, getBooks } from "~/features/api/fetchBooks";
 import placeholder from "~/assets/placeholder.jpg";
@@ -24,6 +28,8 @@ export const useCategory = routeLoader$(async () => {
 });
 
 export default component$(() => {
+  const nav = useNavigate();
+
   const categorieData = useContext(categoryContext);
   const searchData = useContext(searchContext);
 
@@ -43,7 +49,11 @@ export default component$(() => {
     <div class="min-h-screen">
       <Resource
         value={dataResource}
-        onPending={() => <div class="bg-red-500 text-center">Loading...</div>}
+        onPending={() => (
+          <div class="loader w-full p-10 flex justify-center items-center">
+            Loading...
+          </div>
+        )}
         onRejected={(reason) => <div>Error: {reason.message}</div>}
         onResolved={(Books) => (
           <div class="flex flex-wrap gap-4 p-4 justify-center ">
@@ -54,6 +64,9 @@ export default component$(() => {
                   src={book.volumeInfo.imageLinks?.thumbnail || placeholder}
                   width={200}
                   height={80}
+                  onClick$={() => {
+                    nav("/books/" + book.id);
+                  }}
                 />
               </div>
             ))}

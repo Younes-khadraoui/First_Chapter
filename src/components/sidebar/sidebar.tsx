@@ -12,7 +12,7 @@ export const Sidebar = component$(() => {
         {categories.map((category, index) => (
           <li key={index}>
             <input
-              class="accent-[#292828] outline-none  cursor-pointer"
+              class="accent-[#292828] outline-none cursor-pointer"
               type="radio"
               id={category}
               name={"category"}
