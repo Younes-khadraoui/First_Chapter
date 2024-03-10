@@ -15,25 +15,23 @@ export default component$(() => {
   const categorieData = useContext(categoryContext);
   const searchData = useContext(searchContext);
 
-  const dataResource = useResource$<Book[]>(async ({ track, cleanup }) => {
-    track(() => categorieData.value);
-    track(() => searchData.value);
+  const dataResource = useResource$<Book[]>(
+    async ({ track, cleanup }: { track: any; cleanup: any }) => {
+      track(() => categorieData.value);
+      track(() => searchData.value);
 
-    const controller = new AbortController();
-    cleanup(() => controller.abort("cleanup"));
+      const controller = new AbortController();
+      cleanup(() => controller.abort("cleanup"));
 
-    if (searchData.value) {
-      const books = await getBooks(
-        searchData.value,
-        categorieData.value,
-        controller
-      );
-      return books;
-    } else {
-      const books = await getBooks("search", categorieData.value, controller);
-      return books;
+      if (searchData.value)
+        return await getBooks(
+          searchData.value,
+          categorieData.value,
+          controller
+        );
+      else return await getBooks("search", categorieData.value, controller);
     }
-  });
+  );
 
   return (
     <div class="min-h-screen">

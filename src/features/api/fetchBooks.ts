@@ -1,8 +1,5 @@
 import { server$ } from "@builder.io/qwik-city";
 
-const getAPI = server$(function () {
-  return this.env.get("API_KEY");
-});
 const BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
 export interface Book {
@@ -29,15 +26,19 @@ export interface Category {
   };
 }
 
+const getAPI = server$(function () {
+  return this.env.get("API_KEY");
+});
+
 export async function getBooks(
   category: string = "",
   searchTerm: string = "",
   controller: AbortController = new AbortController()
 ): Promise<Book[]> {
-  let API_KEY = await getAPI();
-  if (process.env.IS_PROD === "true") {
-    API_KEY = process.env.API_KEY;
-  }
+  const API_KEY =
+    import.meta.env.PUBLIC_IS_PROD === "true"
+      ? process.env["API_KEY"]
+      : await getAPI();
   const res = await fetch(
     `${BASE_URL}?q=${searchTerm}:${category}&key=${API_KEY}&maxResults=40`,
     { signal: controller.signal }
