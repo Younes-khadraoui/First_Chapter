@@ -69,7 +69,7 @@ export const Navbar = component$(() => {
             <input
               type="hidden"
               name="options.callbackUrl"
-              value="http://localhost:5173/"
+              value="https://f1rst-chapter.vercel.app/"
             />
             <button>
               <img class="rounded-full bg-white" width={30} height={30} />

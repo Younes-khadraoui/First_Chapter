@@ -33,7 +33,7 @@ export default component$(() => {
                 <input
                   type="hidden"
                   name="callbackUrl"
-                  value="http://localhost:5173/"
+                  value="https://f1rst-chapter.vercel.app/"
                 />
                 <button class="bg-red-500 rounded-lg p-2 hover:bg-[#242121] hover:border hover:border-white hover:text-white transition-all duration-300 ease-in-out">
                   Signout
