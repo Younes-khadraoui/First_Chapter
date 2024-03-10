@@ -1,7 +1,7 @@
 import { server$ } from "@builder.io/qwik-city";
 
 const getAPI = server$(function () {
-  return this.env.get("VITE_API_KEY");
+  return this.env.get("API_KEY");
 });
 const BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
@@ -34,7 +34,10 @@ export async function getBooks(
   searchTerm: string = "",
   controller: AbortController = new AbortController()
 ): Promise<Book[]> {
-  const API_KEY = await getAPI();
+  let API_KEY = await getAPI();
+  if (process.env.IS_PROD === "true") {
+    API_KEY = process.env.API_KEY;
+  }
   const res = await fetch(
     `${BASE_URL}?q=${searchTerm}:${category}&key=${API_KEY}&maxResults=40`,
     { signal: controller.signal }
