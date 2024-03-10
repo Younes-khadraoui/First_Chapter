@@ -12,6 +12,7 @@ import { FaGemRegular } from "@qwikest/icons/font-awesome";
 import BooksIcon from "~/assets/Books.svg?jsx";
 import { searchContext } from "~/routes/layout";
 import { useAuthSession, useAuthSignin } from "~/routes/plugin@auth";
+import placeholder from "../../assets/placeholder.jpg";
 
 export const useDebouncer = (fn: QRL<(args: any) => void>, delay: number) => {
   const timeoutId = useSignal<number>();
@@ -36,10 +37,10 @@ export const Navbar = component$(() => {
   return (
     <div class="bg-[#292828] flex justify-between p-2 items-center">
       <div class="flex flex-grow text-start items-center ">
-        <Link href="/">
+        <Link href="/" aria-label="Home">
           <BooksIcon width={80} />
         </Link>
-        <Link href="/">
+        <Link href="/" aria-label="Home">
           <p class="text-2xl flex-grow hover:opacity-80 ">First Chapter</p>
         </Link>
       </div>
@@ -54,13 +55,13 @@ export const Navbar = component$(() => {
         />
       </div>
       <dvi class="flex-grow flex gap-4 justify-end items-center ">
-        <Link href="/" class="text-2xl">
+        <Link href="/" class="text-2xl" aria-label="Favorite">
           <FaHeartRegular />
         </Link>
-        <Link href="/" class="text-2xl">
+        <Link href="/" class="text-2xl" aria-label="Notifications">
           <FaBellRegular />
         </Link>
-        <Link href="/" class="text-2xl">
+        <Link href="/" class="text-2xl" aria-label="Settings">
           <FaGemRegular />
         </Link>
         {session.value?.user === undefined && (
@@ -71,23 +72,23 @@ export const Navbar = component$(() => {
               name="options.callbackUrl"
               value="https://firstchap.vercel.app/"
             />
-            <button>
-              <img
-                src=""
-                class="rounded-full bg-white"
-                width={30}
-                height={30}
-              />
-            </button>
+            <img
+              src={placeholder}
+              class="rounded-full bg-white cursor-pointer"
+              width={30}
+              height={30}
+              alt="user image"
+            />
           </Form>
         )}
         {session.value?.user !== undefined && (
-          <Link href="/account">
+          <Link href="/account" aria-label="User Account">
             <img
               src={session.value.user.image || ""}
               class="rounded-full bg-white"
               width={30}
               height={30}
+              alt="user image"
             />
           </Link>
         )}

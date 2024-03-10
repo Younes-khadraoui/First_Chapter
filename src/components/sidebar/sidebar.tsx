@@ -32,8 +32,9 @@ export const Sidebar = component$(() => {
       <ul class="mb-4">
         {categories.map((category, index) => (
           <li key={index}>
+            <label for={category} class="px-2 text-sm hidden"></label>
             <input
-              class="accent-[#292828] outline-none cursor-pointer"
+              class="accent-[#292828] ou</label>tline-none cursor-pointer"
               type="radio"
               id={category}
               name={"category"}

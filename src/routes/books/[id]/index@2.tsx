@@ -1,5 +1,5 @@
 import { component$, useSignal } from "@builder.io/qwik";
-import { Link, routeLoader$ } from "@builder.io/qwik-city";
+import { DocumentHead, Link, routeLoader$ } from "@builder.io/qwik-city";
 import { type Book, getBook } from "~/features/api/fetchBooks";
 import placeholder from "~/assets/placeholder.jpg";
 import { FaHeartRegular } from "@qwikest/icons/font-awesome";
@@ -22,6 +22,7 @@ export default component$(() => {
           src={book.volumeInfo.imageLinks?.thumbnail || placeholder}
           width={200}
           height={120}
+          alt="Book Image"
         />
         <div class="py-5 lg:py-0">
           <h1 class="text-2xl">{book.volumeInfo.title}</h1>
@@ -61,3 +62,13 @@ export default component$(() => {
     </div>
   );
 });
+
+export const head: DocumentHead = {
+  title: "Book Details",
+  meta: [
+    {
+      name: "description",
+      content: "Qwik site description",
+    },
+  ],
+};

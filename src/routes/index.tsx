@@ -59,6 +59,7 @@ export default component$(() => {
                   onClick$={() => {
                     nav("/books/" + book.id);
                   }}
+                  alt="Book Image"
                 />
               </div>
             ))}
@@ -70,7 +71,7 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Welcome to Qwik",
+  title: "First Chapter",
   meta: [
     {
       name: "description",

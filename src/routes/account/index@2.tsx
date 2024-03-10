@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { useAuthSession, useAuthSignout } from "../plugin@auth";
-import { Form } from "@builder.io/qwik-city";
+import { DocumentHead, Form } from "@builder.io/qwik-city";
 
 export default component$(() => {
   const session = useAuthSession();
@@ -23,6 +23,7 @@ export default component$(() => {
                   src={session.value.user?.image || ""}
                   width={80}
                   height={20}
+                  alt="user image"
                 ></img>
                 <div>
                   <p>User : {session.value.user?.name}</p>
@@ -46,3 +47,13 @@ export default component$(() => {
     </div>
   );
 });
+
+export const head: DocumentHead = {
+  title: "User Account",
+  meta: [
+    {
+      name: "description",
+      content: "Qwik site description",
+    },
+  ],
+};
