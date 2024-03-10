@@ -43,7 +43,7 @@ export const Navbar = component$(() => {
           <p class="text-2xl flex-grow hover:opacity-80 ">First Chapter</p>
         </Link>
       </div>
-      <dvi class="flex-grow flex pr-10 ">
+      <div class="flex-grow flex pr-10 ">
         <input
           class="flex-grow p-1 pl-4 rounded-lg bg-[#373737] border-none active:border-none focus:outline-none"
           placeholder="search a book"
@@ -52,7 +52,7 @@ export const Navbar = component$(() => {
             debounce(target.value);
           }}
         />
-      </dvi>
+      </div>
       <dvi class="flex-grow flex gap-4 justify-end items-center ">
         <Link href="/" class="text-2xl">
           <FaHeartRegular />
@@ -69,10 +69,15 @@ export const Navbar = component$(() => {
             <input
               type="hidden"
               name="options.callbackUrl"
-              value="https://f1rst-chapter.vercel.app/"
+              value="https://firstchap.vercel.app/"
             />
             <button>
-              <img class="rounded-full bg-white" width={30} height={30} />
+              <img
+                src=""
+                class="rounded-full bg-white"
+                width={30}
+                height={30}
+              />
             </button>
           </Form>
         )}
