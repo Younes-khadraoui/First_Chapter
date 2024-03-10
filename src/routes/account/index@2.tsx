@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { useAuthSession, useAuthSignout } from "../plugin@auth";
-import { DocumentHead, Form } from "@builder.io/qwik-city";
+import { type DocumentHead, Form } from "@builder.io/qwik-city";
 
 export default component$(() => {
   const session = useAuthSession();

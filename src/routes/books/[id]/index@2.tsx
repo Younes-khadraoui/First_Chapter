@@ -1,5 +1,5 @@
 import { component$, useSignal } from "@builder.io/qwik";
-import { DocumentHead, Link, routeLoader$ } from "@builder.io/qwik-city";
+import { type DocumentHead, Link, routeLoader$ } from "@builder.io/qwik-city";
 import { type Book, getBook } from "~/features/api/fetchBooks";
 import placeholder from "~/assets/placeholder.jpg";
 import { FaHeartRegular } from "@qwikest/icons/font-awesome";

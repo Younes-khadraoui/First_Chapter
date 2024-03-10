@@ -32,7 +32,6 @@ export const Sidebar = component$(() => {
       <ul class="mb-4">
         {categories.map((category, index) => (
           <li key={index}>
-            <label for={category} class="px-2 text-sm hidden"></label>
             <input
               class="accent-[#292828] ou</label>tline-none cursor-pointer"
               type="radio"
@@ -44,7 +43,9 @@ export const Sidebar = component$(() => {
                 categoryData.value = category;
               }}
             />
-            <label class="px-2 text-sm">{category}</label>
+            <label for={category} class="px-2 text-sm">
+              {category}
+            </label>
           </li>
         ))}
       </ul>
