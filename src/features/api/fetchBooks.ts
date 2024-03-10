@@ -1,7 +1,7 @@
 import { server$ } from "@builder.io/qwik-city";
 
 const getAPI = server$(function () {
-  return this.env.get("API_KEY");
+  return this.env.get("VITE_API_KEY");
 });
 const BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
