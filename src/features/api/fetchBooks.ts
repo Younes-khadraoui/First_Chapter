@@ -35,7 +35,6 @@ export async function getBooks(
   searchTerm: string = "",
   controller: AbortController = new AbortController()
 ): Promise<Book[]> {
-  console.log(import.meta.env.PUBLIC_IS_PROD, process.env["API_KEY"]);
   const API_KEY =
     import.meta.env.PUBLIC_IS_PROD === "true"
       ? process.env["API_KEY"]
