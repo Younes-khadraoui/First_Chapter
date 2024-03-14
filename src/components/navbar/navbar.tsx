@@ -35,8 +35,8 @@ export const Navbar = component$(() => {
     1000
   );
   return (
-    <div class="bg-[#292828] flex justify-between p-2 items-center">
-      <div class="flex flex-grow text-start items-center ">
+    <div class="bg-[#292828] grid grid-cols-2 sm:grid-cols-3 justify-between p-2 items-center">
+      <div class="flex text-start items-center ">
         <Link href="/" aria-label="Home">
           <BooksIcon width={80} />
         </Link>
@@ -44,17 +44,19 @@ export const Navbar = component$(() => {
           <p class="text-2xl flex-grow hover:opacity-80 ">First Chapter</p>
         </Link>
       </div>
-      <div class="flex-grow flex pr-10 ">
-        <input
-          class="flex-grow p-1 pl-4 rounded-lg bg-[#373737] border-none active:border-none focus:outline-none"
-          placeholder="search a book"
-          type="text"
-          onInput$={(_, target) => {
-            debounce(target.value);
-          }}
-        />
+      <div class="order-4 col-span-2 sm:col-span-1 flex justify-center mt-2 sm:mt-0">
+        <div class="flex  sm:w-full">
+          <input
+            class="flex-grow p-1 pl-4 rounded-lg bg-[#373737] border-none active:border-none focus:outline-none w-full"
+            placeholder="search a book"
+            type="text"
+            onInput$={(_, target) => {
+              debounce(target.value);
+            }}
+          />
+        </div>
       </div>
-      <dvi class="flex-grow flex gap-4 justify-end items-center ">
+      <dvi class="flex gap-4 justify-end items-center  sm:order-5">
         <Link href="/" class="text-2xl" aria-label="Favorite">
           <FaHeartRegular />
         </Link>
@@ -74,7 +76,7 @@ export const Navbar = component$(() => {
             />
             <img
               src={placeholder}
-              class="rounded-full bg-white cursor-pointer"
+              class="rounded-full bg-white cursor-pointer w-7"
               width={30}
               height={30}
               alt="user image"
@@ -85,7 +87,7 @@ export const Navbar = component$(() => {
           <Link href="/account" aria-label="User Account">
             <img
               src={session.value.user.image || ""}
-              class="rounded-full bg-white"
+              class="rounded-full bg-white w-7"
               width={30}
               height={30}
               alt="user image"

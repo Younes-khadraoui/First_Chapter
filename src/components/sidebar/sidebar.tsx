@@ -27,7 +27,7 @@ export const categories = [
 export const Sidebar = component$(() => {
   const categoryData = useContext(categoryContext);
   return (
-    <div class="border-4 border-[#292828] rounded-lg p-4 min-w-fit mt-3 ml-2 inline-block">
+    <div class="hidden sm:inline-block border-4 border-[#292828] rounded-lg p-4 min-w-fit mt-3 ml-2 ">
       <p class="underline underline-offset-2 text-xl pb-4">Categories</p>
       <ul class="mb-4">
         {categories.map((category, index) => (
