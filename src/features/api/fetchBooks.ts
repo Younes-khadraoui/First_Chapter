@@ -35,10 +35,7 @@ export async function getBooks(
   searchTerm: string = "",
   controller: AbortController = new AbortController()
 ): Promise<Book[]> {
-  const API_KEY =
-    import.meta.env.PUBLIC_IS_PROD === "true"
-      ? process.env["API_KEY"]
-      : await getAPI();
+  const API_KEY = await getAPI();
   const res = await fetch(
     `${BASE_URL}?q=${searchTerm}:${category}&key=${API_KEY}&maxResults=40`,
     { signal: controller.signal }
