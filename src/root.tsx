@@ -22,6 +22,8 @@ export default component$(() => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/book.png" />
+        <title>First chapter</title>
+        <meta name="description" content="First chapter" />
         <ServiceWorkerRegister />
       </head>
       <body lang="en">
