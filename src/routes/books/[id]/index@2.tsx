@@ -19,14 +19,19 @@ export default component$(() => {
       <div class="p-4 bg-[#292828] gap-4 lg:flex">
         <img
           class="rounded-sm flex-shrink max-h-80 min-w-[200px]"
-          src={book.volumeInfo.imageLinks?.thumbnail || placeholder}
+          src={
+            book.volumeInfo.imageLinks.thumbnail?.replace(
+              /^http:\/\//i,
+              "https://"
+            ) || placeholder
+          }
           width={200}
           height={120}
           alt="Book Image"
         />
         <div class="py-5 lg:py-0">
           <h1 class="text-2xl">{book.volumeInfo.title}</h1>
-          <p class="opacity-70">{book.volumeInfo.authors?.join(", ")}</p>
+          <p class="opacity-70">{book.volumeInfo.authors.join(", ")}</p>
           <p class="opacity-70 mb-4">
             {book.volumeInfo.categories?.join(", ")}
           </p>
