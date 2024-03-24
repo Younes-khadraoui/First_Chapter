@@ -12,7 +12,6 @@ import { FaGemRegular } from "@qwikest/icons/font-awesome";
 import BooksIcon from "~/assets/Books.svg?jsx";
 import { searchContext } from "~/routes/layout";
 import { useAuthSession, useAuthSignin } from "~/routes/plugin@auth";
-import placeholder from "../../assets/placeholder.jpg";
 
 export const useDebouncer = (fn: QRL<(args: any) => void>, delay: number) => {
   const timeoutId = useSignal<number>();
@@ -74,13 +73,7 @@ export const Navbar = component$(() => {
               name="options.callbackUrl"
               value="https://firstchap.vercel.app/"
             />
-            <img
-              src={placeholder}
-              class="rounded-full bg-white cursor-pointer w-7"
-              width={30}
-              height={30}
-              alt="user image"
-            />
+            <div class="rounded-full h-7 bg-white cursor-pointer w-7" />
           </Form>
         )}
         {session.value?.user !== undefined && (
