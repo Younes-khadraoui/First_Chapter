@@ -73,7 +73,16 @@ export const head: DocumentHead = {
   meta: [
     {
       name: "description",
-      content: "Qwik site description",
+      content: "Books store ",
+    },
+    // Open graph
+    {
+      property: "og:title",
+      content: "First Chapter",
+    },
+    {
+      property: "og:description",
+      content: "Books store",
     },
   ],
 };
