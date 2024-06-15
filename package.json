@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@qwikest/icons": "^0.0.13",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "readable-stream": "^4.5.2"
   }
 }
