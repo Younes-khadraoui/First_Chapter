@@ -20,7 +20,7 @@ export default component$(() => {
         <img
           class="rounded-sm flex-shrink max-h-80 min-w-[200px]"
           src={
-            book.volumeInfo.imageLinks.thumbnail?.replace(
+            book.volumeInfo.imageLinks?.thumbnail?.replace(
               /^http:\/\//i,
               "https://"
             ) || placeholder

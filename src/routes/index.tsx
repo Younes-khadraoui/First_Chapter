@@ -51,7 +51,12 @@ export default component$(() => {
               <div key={book.id}>
                 <img
                   class="h-full cursor-pointer"
-                  src={book.volumeInfo.imageLinks.thumbnail?.replace(/^http:\/\//i, 'https://') || placeholder}
+                  src={
+                    book.volumeInfo.imageLinks?.thumbnail?.replace(
+                      /^http:\/\//i,
+                      "https://"
+                    ) || placeholder
+                  }
                   width={200}
                   height={80}
                   onClick$={() => {
