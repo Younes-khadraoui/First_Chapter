@@ -1,1 +1,0 @@
-import { fetch } from "../server/entry.cloudflare-pages"; export default { fetch };
