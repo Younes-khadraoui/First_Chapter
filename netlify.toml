@@ -1,0 +1,9 @@
+[build]
+  # Set the Node.js version
+  node_version = "18" # or the version you need
+
+  # Specify the build command
+  command = "pnpm run build"
+
+  # Set the directory where the build output will be published
+  publish = "dist" # Adjust this if your build output directory is different
