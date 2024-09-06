@@ -18,9 +18,7 @@ export default component$(() => {
   return (
     <>
       <Navbar />
-      <div class="min-h-screen p-4">
-        <Slot />
-      </div>
+       <Slot />
       <Footer />
     </>
   );

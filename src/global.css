@@ -8,4 +8,5 @@ body {
   line-height: inherit;
   background-color: #242121;
   color: white;
+  overflow-x: hidden;
 }

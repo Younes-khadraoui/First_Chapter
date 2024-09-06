@@ -1,4 +1,4 @@
-import { component$, useSignal } from "@builder.io/qwik";
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import { type DocumentHead, Link, routeLoader$ } from "@builder.io/qwik-city";
 import { type Book, getBook } from "~/features/api/fetchBooks";
 import placeholder from "~/assets/placeholder.jpg";
@@ -10,17 +10,24 @@ export const useBook = routeLoader$(async (requestEvent) => {
 
 export default component$(() => {
   const favourite = useSignal(false);
+  const descriptionSignal = useSignal('');
 
   const res = useBook();
   const book = res.value;
 
+  useTask$(() => {
+    if (book.volumeInfo.description) {
+      descriptionSignal.value = book.volumeInfo.description;
+    }
+  });
+
   return (
-    <div class="h-screen grid grid-cols-2">
-      <div class="p-4 bg-[#292828] gap-4 lg:flex">
+    <div class="min-h-[calc(100vh-9rem)] flex flex-wrap">
+      <div class="p-4 bg-[#292828] gap-4 flex flex-col lg:flex-row flex-1">
         <img
-          class="rounded-sm flex-shrink max-h-80 min-w-[200px]"
+          class="rounded-sm max-h-80 min-w-[200px]"
           src={
-            book.volumeInfo.imageLinks?.thumbnail?.replace(
+            book.volumeInfo.imageLinks.thumbnail?.replace(
               /^http:\/\//i,
               "https://"
             ) || placeholder
@@ -55,14 +62,17 @@ export default component$(() => {
           </div>
         </div>
       </div>
-      <div class="p-4 flex-grow">
+      <div class="p-4 flex-1">
         {book.volumeInfo.description && (
           <h2 class="text-2xl pb-2">Description :</h2>
         )}
         {!book.volumeInfo.description && (
           <h2 class="text-2xl pb-2 opacity-80">No Description available </h2>
         )}
-        <p class="opacity-70">{book.volumeInfo.description}</p>
+        <div
+          class="opacity-70"
+          dangerouslySetInnerHTML={descriptionSignal.value} // Injecting the HTML string safely
+        />
       </div>
     </div>
   );

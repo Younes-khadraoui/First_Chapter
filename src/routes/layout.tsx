@@ -43,7 +43,7 @@ export default component$(() => {
   return (
     <>
       <Navbar />
-      <div class="flex items-start">
+      <div class="flex">
         <Sidebar />
         <main>
           <Slot />
